@@ -115,7 +115,7 @@ void tsp_cmd(struct Graph* graph,char *inp,int i){
         }
     }
     if(min == 1000){
-        printf("TSP shortest path: -1\n");
+        printf("TSP shortest path: -1 \n");
     } else
-        printf("TSP shortest path: %d\n",min);
+        printf("TSP shortest path: %d \n",min);
 }

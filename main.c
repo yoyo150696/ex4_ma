@@ -42,7 +42,7 @@ int main()
         if(inp[i] == 'S'){
             int src =  inp[i+1]-'0';
             int dest = inp[i+2]-'0';
-            printf("Dijsktra shortest path: %d\n",shortest(graph,src,dest));
+            printf("Dijsktra shortest path: %d \n",shortest(graph,src,dest));
             continue;
         }
         if(inp[i] == 'T'){
