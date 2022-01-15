@@ -50,7 +50,5 @@ int main()
         }
     }
 
-    free(graph->array);
-    free(graph);
     return 0;
 }
