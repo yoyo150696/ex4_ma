@@ -29,11 +29,13 @@ struct Graph*createGraph(int V)
 
     graph->array=(struct List*)malloc(sizeof(struct List)*V*2);
 
+
     // Initialize each adjacency list as empty by making head as NULL
     int i;
 
     for(i=0;i<V;i++)
     {
+        graph->array[i].head=NULL;
         graph->array[i].head=NULL;
         graph->array[i].dist=1000;
         graph->array[i].id = -1;
@@ -81,28 +83,35 @@ struct Graph* addEdge(struct Graph* graph,int src,int des,int weight)
 
     temp->next=graph->array[id].head;
 
+
     graph->array[id].head=temp;
     return graph;
 
 }
 
-void printGraph(struct Graph* graph)
+void freelist(struct Graph* graph,int v){
+    struct Node* trav = graph->array[v].head;
+    struct Node* trav_free = graph->array[v].head;
+    while (trav){
+        if(trav->next!=NULL)
+            trav = trav->next;
+        if(trav->next==NULL){
+            trav_free->next=NULL;
+            free(trav);
+            break;
+        }    
+        printf("%d %d\n",trav_free->dest,trav->dest);
+        trav = trav->next;
+        trav_free= trav_free->next;
+    }
+
+}
+
+void freeGraph(struct Graph* graph)
 {
     for (int v = 0; v < graph->V; v++)
     {
-        struct Node* trav = graph->array[v].head;
-        graph->array[v].dist = 1000;
-        if(trav)
-            printf("\n Adjacency list of vertex %d\n head ", graph->array[v].id);
-
-        while (trav)
-        {
-            if(trav->dest != -1)
-                printf("-> d-%d,w-%d", trav->dest,trav->weight);
-
-            trav = trav->next;
-        }
-        printf("\n");
+        freelist(graph,v);
     }
 }
 

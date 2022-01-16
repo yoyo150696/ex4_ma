@@ -11,7 +11,7 @@ int main()
 {
     int size;
     char current;
-    char inp[100];
+    char inp[100] = "";
     static struct Graph* graph;
     int i = 0;
     while((scanf("%c",&current))){
@@ -23,8 +23,7 @@ int main()
             i++;
         }
     }
-    int le = strlen(inp);
-    for(int i = 0;i<le;i++){
+    for(int i = 0;i<strlen(inp);i++){
         if(inp[i] == 'A'){
             size = inp[i+1] - '0';
             graph = createGraph(size);
@@ -52,6 +51,7 @@ int main()
             tsp_cmd(graph,inp,i);
         }
     }
+    freeGraph(graph);
     free(graph);
 
     return 0;

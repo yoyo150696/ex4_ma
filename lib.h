@@ -27,7 +27,9 @@ int find_id(struct Graph* graph,int src);
 
 struct Graph* addEdge(struct Graph* graph,int src,int des,int weight);
 
-void printGraph(struct Graph* graph);
+void freelist(struct Graph* graph,int v);
+
+void freeGraph(struct Graph* graph);
 
 struct Graph* add_from_n(struct Graph* graph,int i,char* inp);
 
@@ -46,6 +48,3 @@ bool not_inside(char *arr,char c);
 int tsp(struct Graph* graph,char *arr,char head);
 
 void tsp_cmd(struct Graph* graph,char *inp,int i);
-
-
-
