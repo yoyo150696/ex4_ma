@@ -14,7 +14,10 @@ int main()
     char inp[100];
     static struct Graph* graph;
     int i = 0;
-    while((current = getc(stdin)) != '\n' || current != EOF){
+    while((scanf("%c",&current))){
+        if(current == '\n'||current == EOF){
+            break;
+        }
         if(current != ' ' && current != '\t' && current != '\r'){
             inp[i] = current;
             i++;
