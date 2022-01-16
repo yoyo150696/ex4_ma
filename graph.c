@@ -124,24 +124,18 @@ struct Graph* add_from_n(struct Graph* graph,int i,char* inp){
 
 struct Graph* add_node(struct Graph* graph,int i,char* inp){
     int node = inp[i+1]-'0';
-    printf("yyy");
     int check = 0;
     for(int j = 0;j<graph->V;j++){
-        printf("kkk\n");
         if(node == graph->array[j].id){
-            printf("nn\n");
             graph->array[j].head = NULL;
             add_from_n(graph,i,inp);
-            printf("5");
             check = 1;
         }
     }
 
     if(check == 0){
-        printf("abc");
         graph->V=graph->V+1;
         //graph->array=(struct List*)malloc(sizeof(struct List)*V);
-        printf("work");
         graph->array[graph->V-1].head=NULL;
         graph->array[graph->V-1].id = node;
         struct Node*temp=c_node(node,inp[i+2]-'0',inp[i+3]-'0');

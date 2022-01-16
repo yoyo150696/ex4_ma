@@ -52,6 +52,7 @@ int main()
             tsp_cmd(graph,inp,i);
         }
     }
+    free(graph);
 
     return 0;
 }
