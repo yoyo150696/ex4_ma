@@ -19,23 +19,22 @@ struct Node* c_node( int src,int dest,int w)
     return q;
 }
 
-struct Graph*createGraph(int V)
+struct Graph*createGraph(struct Graph* graph, int V)
 {
-    struct Graph* graph=(struct Graph*)malloc(sizeof(struct Graph));
 
     graph->V=V;
 
     // Create an array of adjacency lists.  Size of array will be V
-
     graph->array=(struct List*)malloc(sizeof(struct List)*V*2);
 
 
-    // Initialize each adjacency list as empty by making head as NULL
-    int i;
 
-    for(i=0;i<V;i++)
+
+    // Initialize each adjacency list as empty by making head as NULL
+
+    for(int i=0;i<V*2;i++)
     {
-        graph->array[i].head=NULL;
+       
         graph->array[i].head=NULL;
         graph->array[i].dist=1000;
         graph->array[i].id = -1;
@@ -92,15 +91,19 @@ struct Graph* addEdge(struct Graph* graph,int src,int des,int weight)
 void freelist(struct Graph* graph,int v){
     struct Node* trav = graph->array[v].head;
     struct Node* trav_free = graph->array[v].head;
-    while (trav){
+    int i = 0;
+    while (trav&&graph->array[v].id!=-1){
         if(trav->next!=NULL)
             trav = trav->next;
         if(trav->next==NULL){
             trav_free->next=NULL;
             free(trav);
+            trav =NULL;
             break;
         }    
-        printf("%d %d\n",trav_free->dest,trav->dest);
+        i++;
+        if(i>4)
+            break;
         trav = trav->next;
         trav_free= trav_free->next;
     }
@@ -111,7 +114,16 @@ void freeGraph(struct Graph* graph)
 {
     for (int v = 0; v < graph->V; v++)
     {
-        freelist(graph,v);
+        int e = 0;
+        while(e<3){
+            freelist(graph,v);
+            e++;
+        }
+        if(graph->array[v].head){
+            free(graph->array[0].head);
+            graph->array[0].head=NULL;
+        }
+        //free(graph->array);
     }
 }
 
@@ -136,9 +148,11 @@ struct Graph* add_node(struct Graph* graph,int i,char* inp){
     int check = 0;
     for(int j = 0;j<graph->V;j++){
         if(node == graph->array[j].id){
-            graph->array[j].head = NULL;
-            add_from_n(graph,i,inp);
-            check = 1;
+            freelist(graph,j);
+            //graph->array[j].head = NULL;
+            free(graph->array[j].head);
+            //add_from_n(graph,i,inp);
+            check = 0;
         }
     }
 
@@ -168,8 +182,7 @@ struct Graph* remove_node(struct Graph* graph,int i,char* inp){
     int node = inp[i+1]-'0';
     for(int j = 0;j<graph->V;j++) {
         if (node == graph->array[j].id) {
-            graph->array[j].id = -1;
-            graph->array[j].head = NULL;
+            graph->array[j].id = -2;
             for (int v = 0; v < graph->V; v++) {
                 struct Node *trav = graph->array[v].head;
                 while (trav) {

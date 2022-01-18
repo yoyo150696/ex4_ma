@@ -21,7 +21,7 @@ struct Graph
 
 struct Node* c_node( int src,int dest,int w);
 
-struct Graph*createGraph(int V);
+struct Graph*createGraph(struct Graph* graph,int V);
 
 int find_id(struct Graph* graph,int src);
 

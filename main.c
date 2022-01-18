@@ -5,14 +5,12 @@
 #include<ctype.h>
 #include "lib.h"
 
-
-
 int main()
 {
     int size;
     char current;
     char inp[100] = "";
-    static struct Graph* graph;
+    struct Graph* graph;
     int i = 0;
     while((scanf("%c",&current))){
         if(current == '\n'||current == EOF){
@@ -26,8 +24,16 @@ int main()
     for(int i = 0;i<strlen(inp);i++){
         if(inp[i] == 'A'){
             size = inp[i+1] - '0';
-            graph = createGraph(size);
-
+            if (i<5){
+                graph=(struct Graph*)malloc(sizeof(struct Graph));
+                graph = createGraph(graph,size);
+            }
+            else{
+                freeGraph(graph);
+                free(graph);
+                graph=(struct Graph*)malloc(sizeof(struct Graph));
+                graph = createGraph(graph,size);
+            }
             continue;
         }
         if(inp[i] == 'n'){
@@ -51,8 +57,8 @@ int main()
             tsp_cmd(graph,inp,i);
         }
     }
-    freeGraph(graph);
+    //freeGraph(graph);
+    //free(graph->array);
     free(graph);
-
     return 0;
 }
