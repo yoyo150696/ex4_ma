@@ -27,9 +27,6 @@ struct Graph*createGraph(struct Graph* graph, int V)
     // Create an array of adjacency lists.  Size of array will be V
     graph->array=(struct List*)malloc(sizeof(struct List)*V*2);
 
-    free(graph->array);
-
-
     // Initialize each adjacency list as empty by making head as NULL
 
     for(int i=0;i<V*2;i++)

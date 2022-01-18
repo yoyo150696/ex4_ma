@@ -57,7 +57,7 @@ int main()
             tsp_cmd(graph,inp,i);
         }
     }
-    freeGraph(graph);
+    //freeGraph(graph);
     //free(graph->array);
     free(graph);
     return 0;
